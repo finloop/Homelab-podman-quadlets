@@ -1,0 +1,14 @@
+services:
+  traefik:
+    image: traefik:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - "/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:/etc/traefik/traefik.yml:ro"
+      - "./dynamic.yml:/etc/traefik/dynamic.yml:ro"
+    security_opt:
+      - "label=type:container_runtime_t"
+    network_mode: "slirp4netns:port_handler=slirp4netns"
+
