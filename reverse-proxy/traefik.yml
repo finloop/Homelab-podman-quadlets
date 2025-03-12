@@ -16,9 +16,6 @@ accessLog:
 log:
   level: TRACE
 providers:
-  docker:
-    exposedByDefault: false
-    network: reverse-proxy-network
   file:
     filename: /etc/traefik/dynamic.yml
 entrypoints:
