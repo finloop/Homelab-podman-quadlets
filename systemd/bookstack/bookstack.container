@@ -1,0 +1,32 @@
+
+[Unit]
+Description=Self hosted book-like wiki
+After=podman-user-wait-network-online.service bookstack-db.service
+Requires=bookstack-db.service
+
+[Container]
+ContainerName=bookstack-server
+LogDriver=passthrough
+
+Image=lscr.io/linuxserver/bookstack:latest
+
+Volume=bookstack.volume:/config
+
+Secret=BOOKSTACK_DB_PASSWORD,type=env,target=DB_PASSWORD
+Secret=BOOKSTACK_DB_USERNAME,type=env,target=DB_USERNAME
+Secret=BOOKSTACK_DB_DATABASE,type=env,target=DB_DATABASE
+Secret=BOOKSTACK_APP_KEY,type=env,target=APP_KEY
+Environment=DB_HOST=127.0.0.1
+Environment=DB_PORT=3306
+Environment=DB_CONNECTION=mysql
+Environment=APP_URL="https://wiki.piotrk.it"
+
+Pod=bookstack.pod
+
+[Install]
+WantedBy=default.target
+
+[Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
+Restart=always
