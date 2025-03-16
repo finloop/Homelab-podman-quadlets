@@ -20,6 +20,53 @@ Environment=DB_HOST=127.0.0.1
 Environment=DB_PORT=3306
 Environment=DB_CONNECTION=mysql
 Environment=APP_URL="https://wiki.piotrk.it"
+Environment=OIDC_DISPLAY_NAME_CLAIMS=name
+
+# Control if BookStack automatically initiates login via your OIDC system 
+# if it's the only authentication method. Prevents the need for the
+# user to click the "Login with x" button on the login page.
+# Setting this to true enables auto-initiation.
+Environment=AUTH_AUTO_INITIATE=false
+
+# Set OIDC to be the authentication method
+Environment=AUTH_METHOD=oidc
+
+# Set the display name to be shown on the login button.
+# (Login with <name>)
+Environment=OIDC_NAME=SSO
+#Environment=OIDC_DUMP_USER_DETAILS=true
+
+# The "end session" (RP-initiated logout) URL to call during BookStack logout.
+# By default this is false which disables RP-initiated logout.
+# Setting to "true" will enable logout if found as supported by auto-discovery.
+# Otherwise, this can be set as a specific URL endpoint.
+Environment=OIDC_END_SESSION_ENDPOINT=false
+
+# Enable auto-discovery of endpoints and token keys.
+# As per the standard, expects the service to serve a 
+# `<issuer>/.well-known/openid-configuration` endpoint.
+Environment=OIDC_ISSUER_DISCOVER=true
+
+# Enable OIDC group sync.
+Environment=OIDC_USER_TO_GROUPS=true
+
+# Set the attribute from which BookStack will read groups names from.
+Environment=OIDC_GROUPS_CLAIM=groups
+
+# Additional scopes to send with the authentication request.
+# By default BookStack only sends the 'openid', 'profile' & 'email' scopes.
+# Many platforms require specific scopes to be requested for group data.
+# Multiple scopes can be added via comma separation.
+Environment=OIDC_ADDITIONAL_SCOPES=groups
+
+# Remove the user from roles that don't match OIDC groups upon login.
+# Note: While this is enabled the "Default Registration Role", editable within the 
+# BookStack settings view, will be considered a matched role and assigned to the user.
+Environment=OIDC_REMOVE_FROM_GROUPS=false
+
+Secret=BOOKSTACK_OIDC_CLIENT_ID,type=env,target=OIDC_CLIENT_ID
+Secret=BOOKSTACK_OIDC_CLIENT_SECRET,type=env,target=OIDC_CLIENT_SECRET
+Secret=BOOKSTACK_OIDC_ISSUER,type=env,target=OIDC_ISSUER
 
 Pod=bookstack.pod
 
