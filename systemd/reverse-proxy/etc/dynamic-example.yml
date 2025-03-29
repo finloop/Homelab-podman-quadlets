@@ -1,0 +1,64 @@
+http:
+  services:
+    auth-svc:
+      loadBalancer:
+        servers:
+          - url: "http://<server ip>:9000"
+    hoarder-svc:
+      loadBalancer:
+        servers:
+          - url: "http://<server ip>:9001"
+    bookstack-svc:
+      loadBalancer:
+        servers:
+          - url: "http://<server ip>:9002"
+
+  routers:
+    authentik:
+      rule: "host(`<authentik host>`)"
+      entrypoints:
+        - "web"
+      middlewares:
+        - "crowdsec@file"
+      service: auth-svc
+    hoarder:
+      rule: "host(`<hoarder host>`)"
+      entrypoints:
+        - "web"
+      middlewares:
+        - "crowdsec@file"
+      service: hoarder-svc
+    bookstack:
+      rule: "host(`<bookstack host>`)"
+      entrypoints:
+        - "web"
+      middlewares:
+        - "crowdsec@file"
+      service: bookstack-svc
+
+  middlewares:
+   crowdsec:
+      plugin:
+        bouncer:
+          enabled: true
+          defaultDecisionSeconds: 60
+          crowdsecMode: live
+          crowdsecAppsecEnabled: false
+          crowdsecAppsecHost: <server ip>:8998
+          crowdsecAppsecFailureBlock: true
+          crowdsecAppsecUnreachableBlock: true
+          crowdsecLapiKey: <API KEY>
+          crowdsecLapiHost: <server ip>:8999
+          crowdsecLapiScheme: http
+          crowdsecLapiTLSInsecureVerify: false 
+          forwardedHeadersTrustedIPs:
+            # private class ranges
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
+          clientTrustedIPs:
+            # private class ranges
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
+
