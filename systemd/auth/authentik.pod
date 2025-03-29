@@ -1,7 +1,5 @@
 [Unit]
 Description=Authentik Pod
-DNS=169.254.1.1
-IP=169.254.1.2
 
 [Pod]
 PublishPort=9000:9000
