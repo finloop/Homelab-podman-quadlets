@@ -3,8 +3,8 @@
 Image=traefik:latest
 Network=slirp4netns:port_handler=slirp4netns
 PublishPort=8080:80
-Volume=./traefik.yml:/etc/traefik/traefik.yml:ro
-Volume=./dynamic.yml:/etc/traefik/dynamic.yml:ro
+Volume=./etc:/etc/traefik/:ro
+Volume=traefik-logs.volume:/logs
 
 [Service]
 Restart=always

@@ -1,0 +1,8 @@
+[Unit]
+Description=Crowdsec Pod
+
+[Pod]
+# http api for bouncers
+PublishPort=8999:8080
+# appsec waf endpoint
+PublishPort=8998:7422
