@@ -1,6 +1,6 @@
 services:
   readeck:
-    image: codeberg.org/readeck/readeck:latest
+    image: codeberg.org/readeck/readeck-nightly:latest
     container_name: readeck
     volumes:
       - ./volumes/data:/readeck

@@ -31,7 +31,7 @@ services:
     volumes:
       - redis:/data
   server:
-    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.2.1}
+    image: ghcr.io/goauthentik/server:2025.2
     restart: unless-stopped
     command: server
     environment:
@@ -55,7 +55,7 @@ services:
     #   condition: service_healthy
 
   worker:
-    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.2.1}
+    image: ghcr.io/goauthentik/server:2025.2
     restart: unless-stopped
     command: worker
     environment:
@@ -70,9 +70,7 @@ services:
     # Removing `user: root` also prevents the worker from fixing the permissions
     # on the mounted folders, so when removing this make sure the folders have the correct UID/GID
     # (1000:1000 by default)
-    user: "1000:1000"
     volumes:
-      - "/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro"
       - ./media:/media
       - ./certs:/certs
       - ./custom-templates:/templates
@@ -83,8 +81,6 @@ services:
     #    condition: service_healthy
     #  redis:
     #    condition: service_healthy
-    security_opt:
-      - "label=type:container_runtime_t"
  
 
 volumes:
