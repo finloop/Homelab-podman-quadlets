@@ -1,0 +1,23 @@
+[Unit]
+Description=Meilisearch for hoarder service
+After=podman-user-wait-network-online.service
+
+[Container]
+LogDriver=passthrough
+
+Image=docker.io/getmeili/meilisearch:v1.11.1
+
+Volume=hoarder-meilisearch.volume:/meili_data
+
+Environment=MEILI_NO_ANALYTICS="true"
+
+Pod=hoarder.pod
+
+[Install]
+WantedBy=default.target
+
+[Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
+Restart=always
+
