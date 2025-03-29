@@ -8,6 +8,7 @@ HealthTimeout=3s
 Image=docker.io/library/redis:alpine
 Volume=authentik-redis.volume:/data
 Pod=authentik.pod
+AutoUpdate=registry
 
 [Install]
 WantedBy=default.target

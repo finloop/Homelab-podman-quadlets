@@ -8,6 +8,7 @@ Volume=./custom-templates:/templates
 Pod=authentik.pod
 User=1000
 Group=1000
+AutoUpdate=registry
 
 [Service]
 Restart=always

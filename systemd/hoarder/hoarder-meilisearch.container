@@ -5,6 +5,8 @@ After=podman-user-wait-network-online.service
 [Container]
 LogDriver=passthrough
 
+AutoUpdate=registry
+
 Image=docker.io/getmeili/meilisearch:v1.11.1
 
 Volume=hoarder-meilisearch.volume:/meili_data

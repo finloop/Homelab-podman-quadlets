@@ -1,6 +1,7 @@
 [Container]
 Image=docker.io/crowdsecurity/crowdsec:v1.6.8
 Pod=crowdsec.pod
+AutoUpdate=registry
 
 Volume=crowdsec-etc.volume:/etc/crowdsec
 Volume=crowdsec-data.volume:/var/lib/crowdsec/data

@@ -7,6 +7,8 @@ After=podman-user-wait-network-online.service bookstack-db.service
 ContainerName=bookstack-server
 LogDriver=passthrough
 
+AutoUpdate=registry
+
 Image=lscr.io/linuxserver/bookstack:latest
 
 Volume=bookstack.volume:/config

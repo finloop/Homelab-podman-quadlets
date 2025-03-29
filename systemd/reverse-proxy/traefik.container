@@ -5,6 +5,7 @@ Network=slirp4netns:port_handler=slirp4netns
 PublishPort=8080:80
 Volume=./etc:/etc/traefik/:ro
 Volume=traefik-logs.volume:/logs
+AutoUpdate=registry
 
 [Install]
 WantedBy=default.target

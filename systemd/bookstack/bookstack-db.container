@@ -19,6 +19,8 @@ ContainerName=bookstack-mysql
 LogDriver=passthrough
 AddCapability=SYS_NICE
 
+AutoUpdate=registry
+
 Image=docker.io/mysql:8.4
 
 Volume=bookstack-db.volume:/var/lib/mysql
