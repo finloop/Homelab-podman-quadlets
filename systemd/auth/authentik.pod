@@ -1,0 +1,6 @@
+[Unit]
+Description=Authentik Pod
+
+[Pod]
+PublishPort=9000:9000
+

@@ -1,0 +1,13 @@
+[Container]
+EnvironmentFile=.env
+Exec=server
+Image=ghcr.io/goauthentik/server:2025.2
+Volume=./media:/media
+Volume=./custom-templates:/templates
+Pod=authentik.pod
+User=1000
+Group=1000
+
+[Service]
+Restart=always
+

@@ -1,0 +1,14 @@
+[Container]
+Exec=--save 60 1 --loglevel warning
+HealthCmd=redis-cli ping | grep PONG
+HealthInterval=30s
+HealthRetries=5
+HealthStartPeriod=20s
+HealthTimeout=3s
+Image=docker.io/library/redis:alpine
+Volume=authentik-redis.volume:/data
+Pod=authentik.pod
+
+[Service]
+Restart=always
+
