@@ -13,3 +13,11 @@ Group=1000
 Restart=always
 
 
+[Install]
+WantedBy=default.target
+
+[Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
+Restart=always
+

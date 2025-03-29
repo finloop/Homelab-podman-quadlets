@@ -9,6 +9,11 @@ Volume=traefik-logs.volume:/var/log/traefik:ro
 Environment=COLLECTIONS=crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/base-http-scenarios crowdsecurity/appsec-generic-rules crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-crs
 Environment=LEVEL_DEBUG=true
 
+[Install]
+WantedBy=default.target
+
 [Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
 Restart=always
 

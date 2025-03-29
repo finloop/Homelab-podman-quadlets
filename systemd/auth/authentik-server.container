@@ -8,6 +8,12 @@ Pod=authentik.pod
 User=1000
 Group=1000
 
+
+[Install]
+WantedBy=default.target
+
 [Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
 Restart=always
 

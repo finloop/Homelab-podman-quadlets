@@ -9,6 +9,11 @@ Image=docker.io/library/redis:alpine
 Volume=authentik-redis.volume:/data
 Pod=authentik.pod
 
+[Install]
+WantedBy=default.target
+
 [Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
 Restart=always
 

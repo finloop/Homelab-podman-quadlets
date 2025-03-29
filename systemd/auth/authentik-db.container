@@ -10,7 +10,11 @@ Image=docker.io/library/postgres:16-alpine
 Volume=authentik-db.volume:/var/lib/postgresql/data
 Pod=authentik.pod
 
-[Service]
-Restart=always
+[Install]
+WantedBy=default.target
 
+[Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
+Restart=always
 
