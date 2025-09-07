@@ -1,0 +1,26 @@
+
+[Unit]
+Description=Self hosted kanban 
+After=podman-user-wait-network-online.service
+
+[Container]
+ContainerName=kanboard-server
+
+AutoUpdate=registry
+
+Image=ghcr.io/kanboard/kanboard:latest
+
+Volume=kanboard-data.volume:/var/www/app/data
+Volume=kanboard-plugins.volume:/var/www/app/plugins
+
+Environment=PLUGIN_INSTALLER=false
+
+Pod=kanboard.pod
+
+[Install]
+WantedBy=default.target
+
+[Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
+Restart=always

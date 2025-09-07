@@ -1,0 +1,5 @@
+[Unit]
+Description=Kanboard Pod
+
+[Pod]
+PublishPort=9003:80
