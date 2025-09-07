@@ -1,0 +1,18 @@
+# traefik.container
+[Container]
+Image=docker.io/traefik:latest
+Network=slirp4netns:port_handler=slirp4netns
+PublishPort=8080:80
+Volume=./etc:/etc/traefik/:ro
+Volume=traefik-logs.volume:/logs
+AutoUpdate=registry
+LogDriver=passthrough
+
+[Install]
+WantedBy=default.target
+
+[Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
+Restart=always
+
