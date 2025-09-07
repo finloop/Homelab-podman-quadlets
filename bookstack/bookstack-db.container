@@ -1,0 +1,41 @@
+#services:
+#  db:
+#    image: mysql:8.4
+#    environment:
+#      MYSQL_DATABASE: bookstack-dev
+#      MYSQL_USER: bookstack-test
+#      MYSQL_PASSWORD: bookstack-test
+#      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+#    volumes:
+#      - ./dev/docker/init.db:/docker-entrypoint-initdb.d
+#      - db:/var/lib/mysql
+
+[Unit]
+Description=MySQL database for bookstack service
+After=podman-user-wait-network-online.service
+
+[Container]
+ContainerName=bookstack-mysql
+LogDriver=passthrough
+AddCapability=SYS_NICE
+
+AutoUpdate=registry
+
+Image=docker.io/mysql:8.4
+
+Volume=bookstack-db.volume:/var/lib/mysql
+
+Secret=BOOKSTACK_DB_PASSWORD,type=env,target=MYSQL_PASSWORD
+Secret=BOOKSTACK_DB_USERNAME,type=env,target=MYSQL_USER
+Secret=BOOKSTACK_DB_DATABASE,type=env,target=MYSQL_DATABASE
+Secret=BOOKSTACK_DB_ROOT_PASSWORD,type=env,target=MYSQL_ROOT_PASSWORD
+
+Pod=bookstack.pod
+
+[Install]
+WantedBy=default.target
+
+[Service]
+# Extend timeout to 15 minutes so pull doesn't fail
+TimeoutStartSec=900
+Restart=always
