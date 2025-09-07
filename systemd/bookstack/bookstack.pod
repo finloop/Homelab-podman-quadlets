@@ -1,5 +1,0 @@
-[Unit]
-Description=Bookstack Pod
-
-[Pod]
-PublishPort=9002:80

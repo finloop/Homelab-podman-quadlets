@@ -1,18 +1,13 @@
 [Container]
 EnvironmentFile=.env
-Exec=worker
-Image=ghcr.io/goauthentik/server:2025.2
+Exec=server
+Image=ghcr.io/goauthentik/server:2025.6
 Volume=./media:/media
-Volume=./certs:/certs
 Volume=./custom-templates:/templates
 Pod=authentik.pod
 User=1000
 Group=1000
 AutoUpdate=registry
-
-[Service]
-Restart=always
-
 
 [Install]
 WantedBy=default.target

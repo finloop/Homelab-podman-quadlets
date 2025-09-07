@@ -1,5 +1,0 @@
-[Unit]
-Description=Hoarder Pod
-
-[Pod]
-PublishPort=9001:3000

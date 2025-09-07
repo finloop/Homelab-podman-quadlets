@@ -1,13 +1,13 @@
 [Container]
-Environment="POSTGRES_PASSWORD=${PG_PASS:?database password required}" POSTGRES_USER=${PG_USER:-authentik} POSTGRES_DB=${PG_DB:-authentik}
 EnvironmentFile=.env
 HealthCmd=pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}
 HealthInterval=30s
 HealthRetries=5
 HealthStartPeriod=20s
 HealthTimeout=5s
-Image=docker.io/library/postgres:16-alpine
+Image=docker.io/library/postgres:17-alpine
 Volume=authentik-db.volume:/var/lib/postgresql/data
+LogDriver=passthrough
 Pod=authentik.pod
 AutoUpdate=registry
 

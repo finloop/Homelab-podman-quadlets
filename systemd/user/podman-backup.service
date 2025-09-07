@@ -1,0 +1,24 @@
+[Unit]
+Description=Backup server using restic
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/backup/backup.env
+PassEnvironment=NAME MESSAGE_ERROR MESSAGE_OK UPTIME_KUMA_PUSH_URL AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+
+ExecStartPre=/usr/bin/podman pause -a
+
+ExecStart=/usr/bin/podman unshare restic --password-file=%h/backup/.restic.password --repository-file=%h/backup/.restic.repo backup /home/pk/lab /home/pk/.local/share/containers/storage/volumes
+
+# Cleanup, ran if ExecStart
+# ExecStartPost=/usr/bin/podman unpause -a
+# ExecStartPost=%h/backup/notify.sh
+
+# Notify when the service succeds/fails
+ExecStopPost=-%h/backup/notify.sh
+ExecStopPost=-/usr/bin/podman unpause -a
+
+[Install]
+WantedBy=default.target 
